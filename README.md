@@ -13,29 +13,29 @@ For this subproject i have crated a simple Python program (Python_basic_list.py)
 Example
 ````
 
-  pipeline {
-  agent any
-  
-      stages {
-          stage('Checkout') {
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/rerdm/Python-jenkins-automation.git']])
+            }
+        }
+        stage('Build'){
+            steps {
+                bat 'python Python_basic_list.py'
+            }
+        }
+         stage('Test'){
               steps {
-                  checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/rerdm/Python-selenium-jenkins-automation.git']])
+                  echo 'Test has been executed successfully'
               }
-          }
-          stage('Build'){
-              steps {
-                  git 'https://github.com/rerdm/Python-selenium-jenkins-automation.git'
-                  bat 'python Python_basic_list.py'
-              }
-          }
-           stage('Test'){
-                steps {
-                    echo 'Test has been executed successfully'
-                }
-               
-           }
-      }
-  }
+             
+         }
+    }
+}
+
 
 ````
 
